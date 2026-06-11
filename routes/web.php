@@ -71,9 +71,9 @@ Route::post('/logout', function () {
 Route::get('/', function () {
     $totalAnakPanti = AnakPanti::count();
     $totalDonatur = Donatur::count();
-    $totalDonasi = Donasi::sum('jumlah_donasi');
+    $totalDonasi = Donasi::where('jenis_donasi', 'uang')->sum('jumlah_donasi');
     $totalKebutuhan = KebutuhanPanti::count();
-    $recentAnakPanti = AnakPanti::orderByDesc('id')->take(4)->get();
+    $recentAnakPanti = AnakPanti::orderByDesc('id')->get();
     $unfulfilledKebutuhan = KebutuhanPanti::where('status', 'belum_terpenuhi')
         ->orderByDesc('id')
         ->take(4)
@@ -94,23 +94,33 @@ Route::get('/home', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        // Dashboard
+        Route::get('/dashboard', function () {
+            if (auth()->user()->isAdmin()) {
+                return app(DashboardController::class)->index();
+            }
 
-    // User Dashboard Routes
-    Route::get('/user-dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
-    Route::get('/profile', [UserDashboardController::class, 'profile'])->name('user.profile');
-    Route::put('/profile', [UserDashboardController::class, 'updateProfile'])->name('user.profile.update');
-    Route::put('/password', [UserDashboardController::class, 'updatePassword'])->name('user.password.update');
+            return redirect()->route('user.dashboard');
+        })->name('dashboard');
 
+        // User Dashboard Routes
+        Route::get('/user-dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+        Route::get('/donasi/buat', [UserDashboardController::class, 'donasiCreate'])->name('user.donasi.create');
+        Route::get('/donasi/riwayat', [UserDashboardController::class, 'donasiHistory'])->name('user.donasi.history');
+        Route::get('/profile', [UserDashboardController::class, 'profile'])->name('user.profile');
+        Route::put('/profile', [UserDashboardController::class, 'updateProfile'])->name('user.profile.update');
+        Route::put('/password', [UserDashboardController::class, 'updatePassword'])->name('user.password.update');
     // Anak Panti Routes
     Route::resource('anak-panti', AnakPantiController::class);
 
-    // Donatur Routes
-    Route::resource('donatur', DonaturController::class);
+    // Donasi store for authenticated users
+    Route::post('/donasi', [DonasiController::class, 'store'])->name('donasi.store');
 
-    // Donasi Routes
-    Route::resource('donasi', DonasiController::class);
+    // Donatur & Donasi management (admin only)
+    Route::middleware('admin')->group(function () {
+        Route::resource('donatur', DonaturController::class);
+        Route::resource('donasi', DonasiController::class)->except(['store']);
+    });
 
     // Kebutuhan Panti Routes
     Route::resource('kebutuhan-panti', KebutuhanPantiController::class);

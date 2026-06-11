@@ -92,13 +92,8 @@
         </div>
 
         @if($kebutuhan->total())
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4 mt-3">
-                <div class="pagination-summary text-muted small">
-                    Menampilkan {{ $kebutuhan->firstItem() }} - {{ $kebutuhan->lastItem() }} dari {{ $kebutuhan->total() }} data
-                </div>
-                <nav aria-label="Paginasi Kebutuhan Panti" class="pagination-nav">
-                    {{ $kebutuhan->links('pagination::bootstrap-5') }}
-                </nav>
+            <div class="mt-3">
+                {{ $kebutuhan->links('pagination::bootstrap-5') }}
             </div>
         @endif
     </div>

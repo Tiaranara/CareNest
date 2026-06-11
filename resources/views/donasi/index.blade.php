@@ -22,14 +22,14 @@
     <div class="card-body">
         <form action="{{ route('donasi.index') }}" method="GET" class="mb-3">
             <div class="row">
-                <div class="col-md-4">
-                    <input type="text" name="search" class="form-control" placeholder="Cari nama donatur..." value="{{ $search }}">
+                <div class="col-md-7">
+                    <input type="text" name="search" class="form-control" placeholder="Cari donatur..." value="{{ $search }}">
                 </div>
                 <div class="col-md-3">
-                    <input type="date" name="tanggal_mulai" class="form-control" value="{{ $tanggalMulai }}">
-                </div>
-                <div class="col-md-3">
-                    <input type="date" name="tanggal_akhir" class="form-control" value="{{ $tanggalAkhir }}">
+                    <select name="sort" class="form-select">
+                        <option value="terbaru" {{ (isset($sort) && $sort === 'terbaru') ? 'selected' : '' }}>Paling Baru</option>
+                        <option value="terlama" {{ (isset($sort) && $sort === 'terlama') ? 'selected' : '' }}>Paling Lama</option>
+                    </select>
                 </div>
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-secondary w-100"><i class="fas fa-search"></i> Cari</button>
@@ -63,24 +63,37 @@
                                     <span class="badge bg-info">Barang</span>
                                 @endif
                             </td>
-                            <td>{{ $item->jumlah_donasi }}</td>
+                            <td>
+                                @if($item->jenis_donasi === 'uang')
+                                    Rp {{ number_format((float) $item->jumlah_donasi, 0, ',', '.') }}
+                                @else
+                                    {{ $item->jumlah_donasi }}
+                                @endif
+                            </td>
                             <td>{{ $item->keterangan ?? '-' }}</td>
                             <td>
-                                <a href="{{ route('donasi.show', $item) }}" class="btn btn-sm btn-info">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                @if(auth()->user()->isAdmin())
-                                    <a href="{{ route('donasi.edit', $item) }}" class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit"></i>
+                                <div class="d-flex gap-1 flex-nowrap">
+                                    @if($item->bukti_transfer)
+                                        <a href="{{ Storage::url($item->bukti_transfer) }}" target="_blank" class="btn btn-sm btn-outline-success" title="Lihat Bukti Transfer">
+                                            <i class="fas fa-image"></i>
+                                        </a>
+                                    @endif
+                                    <a href="{{ route('donasi.show', $item) }}" class="btn btn-sm btn-info" title="Detail">
+                                        <i class="fas fa-eye"></i>
                                     </a>
-                                    <form action="{{ route('donasi.destroy', $item) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                @endif
+                                    @if(auth()->user()->isAdmin())
+                                        <a href="{{ route('donasi.edit', $item) }}" class="btn btn-sm btn-warning" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('donasi.destroy', $item) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')" title="Hapus">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                     @empty
@@ -93,13 +106,8 @@
         </div>
 
         @if($donasi->total())
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4 mt-3">
-                <div class="pagination-summary text-muted small">
-                    Menampilkan {{ $donasi->firstItem() }} - {{ $donasi->lastItem() }} dari {{ $donasi->total() }} data
-                </div>
-                <nav aria-label="Paginasi Donasi" class="pagination-nav">
-                    {{ $donasi->links('pagination::bootstrap-5') }}
-                </nav>
+            <div class="mt-3">
+                {{ $donasi->links('pagination::bootstrap-5') }}
             </div>
         @endif
     </div>

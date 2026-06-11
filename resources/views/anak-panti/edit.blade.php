@@ -11,7 +11,7 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('anak-panti.update', $anakPanti) }}" method="POST">
+                <form action="{{ route('anak-panti.update', $anakPanti) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -67,6 +67,19 @@
                         @error('status')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="foto" class="form-label">Foto Anak Panti</label>
+                        <input type="file" name="foto" id="foto" accept="image/*" class="form-control @error('foto') is-invalid @enderror">
+                        @error('foto')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        @if($anakPanti->foto)
+                            <div class="mt-3">
+                                <img src="{{ asset('storage/' . $anakPanti->foto) }}" alt="Foto Anak Panti" class="img-fluid rounded" style="max-width: 180px;">
+                            </div>
+                        @endif
                     </div>
 
                     <div class="d-flex gap-2">

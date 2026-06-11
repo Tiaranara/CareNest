@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-#[Fillable(['donatur_id', 'jenis_donasi', 'jumlah_donasi', 'tanggal_donasi', 'keterangan'])]
+#[Fillable(['donatur_id', 'user_id', 'jenis_donasi', 'jumlah_donasi', 'jumlah_barang', 'tanggal_donasi', 'metode_penyaluran', 'bukti_transfer', 'keterangan'])]
 class Donasi extends Model
 {
     use HasFactory, SoftDeletes;

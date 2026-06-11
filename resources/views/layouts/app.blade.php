@@ -78,6 +78,10 @@
             transition: margin 0.3s ease;
         }
 
+        .main-content.no-sidebar {
+            margin-left: 0;
+        }
+
 
         .sidebar-brand h4 {
             margin: 0;
@@ -142,13 +146,14 @@
 
         .card {
             border: none;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 20px;
-            transition: all 0.3s;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
         }
 
         .card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
         }
 
         .card-header {
@@ -156,12 +161,14 @@
             color: white;
             border: none;
             font-weight: bold;
+            border-radius: 16px 16px 0 0 !important;
         }
 
         .btn {
-            border-radius: 5px;
-            font-weight: 500;
+            border-radius: 8px;
+            font-weight: 600;
             padding: 8px 16px;
+            transition: all 0.2s ease;
         }
 
         .btn-primary {
@@ -172,110 +179,137 @@
         .btn-primary:hover {
             background-color: #2980b9;
             border-color: #2980b9;
+            transform: translateY(-1px);
         }
 
         .stat-card {
             border: none !important;
-            border-radius: 12px;
-            color: white;
-            font-weight: bold;
+            border-radius: 20px;
+            background: white;
+            color: #2c3e50;
+            font-weight: 700;
             height: 160px;
             display: flex;
             align-items: stretch;
             padding: 0;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
         }
 
         .stat-card .card-body {
             width: 100%;
             display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            padding: 20px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 22px;
             position: relative;
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
         }
 
         .stat-card i {
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            font-size: 2.2rem;
-            opacity: 0.85;
+            font-size: 1.35rem;
+            opacity: 0.95;
         }
 
-        .stat-card.anak {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        .stat-card .stat-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
         }
 
-        .stat-card.donatur {
-            background: white;
-            color: #333;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        .stat-card .stat-icon {
+            min-width: 60px;
+            min-height: 60px;
+            border-radius: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
         }
 
-        .stat-card.donasi {
-            background: white;
-            color: #333;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        .stat-card.anak .stat-icon {
+            background: #3b82f6;
+            color: white;
         }
 
-        .stat-card.kebutuhan {
-            background: white;
-            color: #333;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        .stat-card.donatur .stat-icon {
+            background: #10b981;
+            color: white;
         }
 
-        .stat-card.donatur i,
-        .stat-card.donasi i,
-        .stat-card.kebutuhan i {
-            color: #ff9800;
+        .stat-card.donasi .stat-icon {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .stat-card.kebutuhan .stat-icon {
+            background: #ef4444;
+            color: white;
         }
 
         .stat-card p {
             margin: 0 0 8px 0;
-            font-size: 0.75rem;
-            opacity: 0.7;
+            font-size: 0.8rem;
+            opacity: 0.75;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            font-weight: 600;
-        }
-
-        .stat-card.anak p {
-            opacity: 0.9;
-            color: white;
+            font-weight: 700;
+            color: #4b5563;
         }
 
         .stat-card h4 {
             margin: 0;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-top: auto;
-        }
-
-        .stat-card.donatur h4,
-        .stat-card.donasi h4,
-        .stat-card.kebutuhan h4 {
-            color: #2c3e50;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #111827;
         }
 
         .alert {
-            border-radius: 5px;
+            border-radius: 12px;
             border: none;
+        }
+
+        .table-responsive {
+            border-radius: 12px;
+            border: 1px solid #edf2f9;
         }
 
         .table {
             background: white;
+            margin-bottom: 0;
         }
 
         .table thead {
-            background-color: #f8f9fa;
+            background-color: #f8f9fc;
+        }
+
+        .table thead th {
+            color: #5e6e82;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #edf2f9;
+            padding: 1.1rem 1rem;
+        }
+
+        .table tbody td {
+            vertical-align: middle;
+            padding: 1rem;
+            color: #495057;
+            border-bottom: 1px solid #edf2f9;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f8f9fc;
         }
 
         .form-control, .form-select {
@@ -290,25 +324,34 @@
 
         .pagination {
             margin: 0;
+            gap: 4px;
         }
 
         .pagination .page-link {
             border-radius: 10px;
             padding: 0.45rem 0.9rem;
-            min-width: 42px;
+            min-width: 40px;
+            text-align: center;
             color: var(--primary);
             border-color: #dfe3e8;
+            transition: all 0.2s ease;
+        }
+
+        .pagination .page-item {
+            margin: 0 2px;
         }
 
         .pagination .page-item.active .page-link {
             background-color: var(--secondary);
             border-color: var(--secondary);
             color: white;
+            box-shadow: 0 3px 8px rgba(52, 152, 219, 0.3);
         }
 
         .pagination .page-link:hover {
             border-color: var(--secondary);
             color: var(--secondary);
+            background-color: #eaf4fb;
         }
 
         .pagination .page-item.disabled .page-link {
@@ -319,38 +362,33 @@
 
         .pagination-wrapper {
             width: 100%;
-            padding-top: 0.5rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #f1f5f9;
+            margin-top: 0.5rem;
         }
 
         .pagination-summary {
             color: #6c757d;
-            font-size: 0.95rem;
-            margin-right: 1rem;
+            font-size: 0.875rem;
             white-space: nowrap;
+            margin-bottom: 0;
         }
 
         .pagination-nav {
             min-width: 220px;
-            margin-left: 1rem;
         }
 
         .pagination-nav .pagination {
-            justify-content: flex-start;
-        }
-
-        .pagination-summary {
-            margin-right: 1rem;
-            margin-bottom: 0;
-        }
-
-        .pagination-wrapper {
-            width: 100%;
-            padding-top: 0.5rem;
+            justify-content: flex-end;
         }
 
         .badge {
             padding: 8px 12px;
             font-size: 0.85rem;
+        }
+
+        .main-content .container-lg {
+            max-width: 1180px;
         }
 
         @media (max-width: 992px) {
@@ -384,57 +422,34 @@
     @yield('styles')
 </head>
 <body>
-    <!-- Sidebar -->
-    <aside id="sidebarMenu" class="sidebar collapse d-lg-block">
-        <div class="sidebar-brand">
-            <h4><i class="fas fa-heart"></i> CareNest</h4>
-            <p>Manajemen Panti Asuhan</p>
-        </div>
+    @if(auth()->user()->isAdmin())
+        <!-- Sidebar -->
+        <aside id="sidebarMenu" class="sidebar collapse d-lg-block">
+            <div class="sidebar-brand">
+                <h4><i class="fas fa-heart"></i> CareNest</h4>
+                <p>Manajemen Panti Asuhan</p>
+            </div>
 
-        <ul class="sidebar-nav">
-            <li><a href="{{ route('dashboard') }}" class="{{ Route::currentRouteName() === 'dashboard' ? 'active' : '' }}"><i class="fas fa-home"></i> Dashboard</a></li>
-
-            @if(auth()->user()->isAdmin())
+            <ul class="sidebar-nav">
+                <li><a href="{{ route('dashboard') }}" class="{{ Route::currentRouteName() === 'dashboard' ? 'active' : '' }}"><i class="fas fa-home"></i> Dashboard</a></li>
                 <li><a href="{{ route('anak-panti.index') }}" class="{{ str_starts_with(Route::currentRouteName(), 'anak-panti') ? 'active' : '' }}"><i class="fas fa-children"></i> Data Anak Panti</a></li>
                 <li><a href="{{ route('donatur.index') }}" class="{{ str_starts_with(Route::currentRouteName(), 'donatur') ? 'active' : '' }}"><i class="fas fa-users"></i> Data Donatur</a></li>
                 <li><a href="{{ route('donasi.index') }}" class="{{ str_starts_with(Route::currentRouteName(), 'donasi') ? 'active' : '' }}"><i class="fas fa-hand-holding-heart"></i> Data Donasi</a></li>
                 <li><a href="{{ route('kebutuhan-panti.index') }}" class="{{ str_starts_with(Route::currentRouteName(), 'kebutuhan-panti') ? 'active' : '' }}"><i class="fas fa-list"></i> Kebutuhan Panti</a></li>
                 <li><a href="{{ route('reports.donasi') }}" class="{{ str_starts_with(Route::currentRouteName(), 'reports') ? 'active' : '' }}"><i class="fas fa-file-pdf"></i> Laporan</a></li>
-            @else
-                <li><a href="{{ route('anak-panti.index') }}" class="{{ str_starts_with(Route::currentRouteName(), 'anak-panti') ? 'active' : '' }}"><i class="fas fa-children"></i> Anak Panti</a></li>
-                <li><a href="{{ route('donatur.index') }}" class="{{ str_starts_with(Route::currentRouteName(), 'donatur') ? 'active' : '' }}"><i class="fas fa-users"></i> Donatur</a></li>
-                <li><a href="{{ route('donasi.index') }}" class="{{ str_starts_with(Route::currentRouteName(), 'donasi') ? 'active' : '' }}"><i class="fas fa-hand-holding-heart"></i> Donasi</a></li>
-                <li><a href="{{ route('kebutuhan-panti.index') }}" class="{{ str_starts_with(Route::currentRouteName(), 'kebutuhan-panti') ? 'active' : '' }}"><i class="fas fa-list"></i> Kebutuhan Panti</a></li>
-            @endif
-
-            <li style="border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 20px; padding-top: 20px;">
-                <form action="{{ route('logout') }}" method="POST" style="padding: 0 20px;">
-                    @csrf
-                    <button type="submit" class="btn btn-danger w-100"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                </form>
-            </li>
-        </ul>
-    </aside>
+                <li style="border-top: 1px solid rgba(255, 255, 255, 0.1); margin-top: 20px; padding-top: 20px;">
+                    <form action="{{ route('logout') }}" method="POST" style="padding: 0 20px;">
+                        @csrf
+                        <button type="submit" class="btn btn-danger w-100"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </aside>
+    @endif
 
     <!-- Main Content -->
-    <div class="main-content">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid">
-                <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <span class="navbar-text">
-                    <i class="fas fa-user"></i> {{ auth()->user()->name }}
-                    @if(auth()->user()->isAdmin())
-                        <span class="badge bg-danger">Admin</span>
-                    @else
-                        <span class="badge bg-info">User</span>
-                    @endif
-                </span>
-            </div>
-        </nav>
-
-        <div class="container-fluid">
+    <div class="main-content {{ auth()->user()->isAdmin() ? '' : 'no-sidebar' }}">
+        <div class="container-lg">
             @if($errors->any())
                 <div class="alert alert-danger">
                     <ul>

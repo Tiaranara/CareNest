@@ -11,7 +11,7 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('anak-panti.store') }}" method="POST">
+                <form action="{{ route('anak-panti.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-3">
@@ -64,6 +64,14 @@
                             <option value="lainnya" {{ old('status') === 'lainnya' ? 'selected' : '' }}>Lainnya</option>
                         </select>
                         @error('status')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="foto" class="form-label">Foto Anak Panti</label>
+                        <input type="file" name="foto" id="foto" accept="image/*" class="form-control @error('foto') is-invalid @enderror">
+                        @error('foto')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

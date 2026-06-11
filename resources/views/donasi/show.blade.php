@@ -56,11 +56,36 @@
                     </tr>
                     <tr>
                         <th>Jumlah Donasi</th>
-                        <td>{{ $donasi->jumlah_donasi }}</td>
+                        <td>
+                            @if($donasi->jenis_donasi === 'uang')
+                                Rp {{ number_format((float) $donasi->jumlah_donasi, 0, ',', '.') }}
+                            @else
+                                {{ $donasi->jumlah_donasi }}
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <th>Tanggal Donasi</th>
                         <td>{{ $donasi->tanggal_donasi->format('d/m/Y') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Metode Penyaluran</th>
+                        <td>{{ $donasi->metode_penyaluran ?? '-' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Bukti Transfer / Foto</th>
+                        <td>
+                            @if($donasi->bukti_transfer)
+                                <a href="{{ Storage::url($donasi->bukti_transfer) }}" target="_blank" class="btn btn-sm btn-outline-primary mb-2">
+                                    <i class="fas fa-external-link-alt"></i> Buka Gambar
+                                </a>
+                                <div>
+                                    <img src="{{ Storage::url($donasi->bukti_transfer) }}" alt="Bukti Transfer" class="img-thumbnail rounded" style="max-height: 250px;">
+                                </div>
+                            @else
+                                <span class="text-muted">Tidak ada lampiran</span>
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <th>Keterangan</th>

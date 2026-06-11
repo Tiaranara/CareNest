@@ -52,21 +52,23 @@
                             <td>{{ $item->nomor_hp ?? '-' }}</td>
                             <td>Rp {{ number_format($item->getTotalDonasi(), 0, ',', '.') }}</td>
                             <td>
-                                <a href="{{ route('donatur.show', $item) }}" class="btn btn-sm btn-info">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                @if(auth()->user()->isAdmin())
-                                    <a href="{{ route('donatur.edit', $item) }}" class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit"></i>
+                                <div class="d-flex gap-1 flex-nowrap">
+                                    <a href="{{ route('donatur.show', $item) }}" class="btn btn-sm btn-info">
+                                        <i class="fas fa-eye"></i>
                                     </a>
-                                    <form action="{{ route('donatur.destroy', $item) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                @endif
+                                    @if(auth()->user()->isAdmin())
+                                        <a href="{{ route('donatur.edit', $item) }}" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('donatur.destroy', $item) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                     @empty
@@ -79,13 +81,8 @@
         </div>
 
         @if($donatur->total())
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4 mt-3">
-                <div class="pagination-summary text-muted small">
-                    Menampilkan {{ $donatur->firstItem() }} - {{ $donatur->lastItem() }} dari {{ $donatur->total() }} data
-                </div>
-                <nav aria-label="Paginasi Donatur" class="pagination-nav">
-                    {{ $donatur->links('pagination::bootstrap-5') }}
-                </nav>
+            <div class="mt-3">
+                {{ $donatur->links('pagination::bootstrap-5') }}
             </div>
         @endif
     </div>

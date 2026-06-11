@@ -6,6 +6,7 @@ use App\Models\AnakPanti;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AnakPantiController extends Controller
 {
@@ -45,7 +46,12 @@ class AnakPantiController extends Controller
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'alamat' => 'required|string',
             'status' => 'required|in:aktif,keluar,lainnya',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
+
+        if ($request->hasFile('foto')) {
+            $validated['foto'] = $request->file('foto')->store('anak-panti', 'public');
+        }
 
         AnakPanti::create($validated);
 
@@ -79,7 +85,15 @@ class AnakPantiController extends Controller
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'alamat' => 'required|string',
             'status' => 'required|in:aktif,keluar,lainnya',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
+
+        if ($request->hasFile('foto')) {
+            if ($anakPanti->foto && Storage::disk('public')->exists($anakPanti->foto)) {
+                Storage::disk('public')->delete($anakPanti->foto);
+            }
+            $validated['foto'] = $request->file('foto')->store('anak-panti', 'public');
+        }
 
         $anakPanti->update($validated);
 

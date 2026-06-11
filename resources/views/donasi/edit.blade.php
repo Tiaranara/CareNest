@@ -80,3 +80,38 @@
     </div>
 </div>
 @endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const jumlahInput = document.getElementById('jumlah_donasi');
+        const jenisSelect = document.getElementById('jenis_donasi');
+
+        function formatRupiah(angka) {
+            let number_string = angka.toString().replace(/[^,\d]/g, ''),
+                split   = number_string.split(','),
+                sisa    = split[0].length % 3,
+                rupiah  = split[0].substr(0, sisa),
+                ribuan  = split[0].substr(sisa).match(/\d{3}/gi);
+                
+            if(ribuan){
+                let separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
+            return split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        }
+
+        function formatIfUang() {
+            if (jenisSelect.value === 'uang') {
+                jumlahInput.value = formatRupiah(jumlahInput.value);
+            }
+        }
+
+        if(jumlahInput && jenisSelect) {
+            jumlahInput.addEventListener('input', formatIfUang);
+            jenisSelect.addEventListener('change', formatIfUang);
+            formatIfUang();
+        }
+    });
+</script>
+@endsection

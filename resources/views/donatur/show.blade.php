@@ -100,7 +100,13 @@
                                                 <span class="badge bg-info">Barang</span>
                                             @endif
                                         </td>
-                                        <td>{{ $item->jumlah_donasi }}</td>
+                                        <td>
+                                            @if($item->jenis_donasi === 'uang')
+                                                Rp {{ number_format((float) $item->jumlah_donasi, 0, ',', '.') }}
+                                            @else
+                                                {{ $item->jumlah_donasi }}
+                                            @endif
+                                        </td>
                                         <td>{{ $item->keterangan ?? '-' }}</td>
                                         <td>
                                             <a href="{{ route('donasi.show', $item) }}" class="btn btn-sm btn-info">

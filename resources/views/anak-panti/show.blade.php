@@ -35,6 +35,13 @@
                 <i class="fas fa-info-circle"></i> Informasi Anak Panti
             </div>
             <div class="card-body">
+                @if($anakPanti->foto)
+                    <div class="mb-4 text-center">
+                        <div style="width:240px;height:240px;margin:0 auto;overflow:hidden;border-radius:12px;">
+                            <img src="{{ asset('storage/' . $anakPanti->foto) }}" alt="Foto Anak Panti" style="width:100%;height:100%;object-fit:cover;display:block;">
+                        </div>
+                    </div>
+                @endif
                 <table class="table table-borderless">
                     <tr>
                         <th width="30%">Nama</th>

@@ -48,7 +48,7 @@
                         <tr>
                             <td>{{ ($anakPanti->currentPage() - 1) * $anakPanti->perPage() + $loop->iteration }}</td>
                             <td>{{ $item->nama }}</td>
-                            <td>{{ $item->tanggal_lahir->format('d/m/Y') }} ({{ $item->getUmur() }} tahun)</td>
+                            <td>{{ $item->tanggal_lahir->format('d/m/Y') }} <span class="text-muted small">({{ $item->getUmur() }} th)</span></td>
                             <td>{{ $item->jenis_kelamin }}</td>
                             <td>
                                 @if($item->status === 'aktif')
@@ -56,25 +56,27 @@
                                 @elseif($item->status === 'keluar')
                                     <span class="badge bg-warning">Keluar</span>
                                 @else
-                                    <span class="badge bg-secondary">{{ $item->status }}</span>
+                                    <span class="badge bg-secondary">{{ ucfirst($item->status) }}</span>
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('anak-panti.show', $item) }}" class="btn btn-sm btn-info">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                @if(auth()->user()->isAdmin())
-                                    <a href="{{ route('anak-panti.edit', $item) }}" class="btn btn-sm btn-warning">
-                                        <i class="fas fa-edit"></i>
+                                <div class="d-flex gap-1 flex-nowrap">
+                                    <a href="{{ route('anak-panti.show', $item) }}" class="btn btn-sm btn-info">
+                                        <i class="fas fa-eye"></i>
                                     </a>
-                                    <form action="{{ route('anak-panti.destroy', $item) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                @endif
+                                    @if(auth()->user()->isAdmin())
+                                        <a href="{{ route('anak-panti.edit', $item) }}" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <form action="{{ route('anak-panti.destroy', $item) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                     @empty
@@ -87,13 +89,8 @@
         </div>
 
         @if($anakPanti->total())
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-4 mt-3">
-                <div class="pagination-summary text-muted small">
-                    Menampilkan {{ $anakPanti->firstItem() }} - {{ $anakPanti->lastItem() }} dari {{ $anakPanti->total() }} data
-                </div>
-                <nav aria-label="Paginasi Anak Panti" class="pagination-nav">
-                    {{ $anakPanti->links('pagination::bootstrap-5') }}
-                </nav>
+            <div class="mt-3">
+                {{ $anakPanti->links('pagination::bootstrap-5') }}
             </div>
         @endif
     </div>

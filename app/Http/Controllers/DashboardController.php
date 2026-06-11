@@ -17,7 +17,7 @@ class DashboardController extends Controller
     {
         $totalAnakPanti = AnakPanti::where('status', 'aktif')->count();
         $totalDonatur = Donatur::count();
-        $totalDonasi = Donasi::sum('jumlah_donasi');
+        $totalDonasi = Donasi::where('jenis_donasi', 'uang')->sum('jumlah_donasi');
         $totalKebutuhan = KebutuhanPanti::where('status', 'belum_terpenuhi')->count();
 
         // Get current month

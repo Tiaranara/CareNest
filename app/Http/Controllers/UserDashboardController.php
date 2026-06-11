@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\AnakPanti;
 use App\Models\Donasi;
-use App\Models\Donatur;
 use App\Models\KebutuhanPanti;
 use Illuminate\Http\Request;
 
@@ -19,17 +18,16 @@ class UserDashboardController extends Controller
         
         // Get stats from database
         $totalAnakPanti = AnakPanti::where('status', 'aktif')->count();
-        $totalDonatur = Donatur::count();
         $totalKebutuhan = KebutuhanPanti::where('status', 'belum_terpenuhi')->count();
         $kebutuhanTerpenuhi = KebutuhanPanti::where('status', 'terpenuhi')->count();
         
         // Get user's donation data
         $totalDonasiBelumDiterima = Donasi::where('jenis_donasi', 'uang')->sum('jumlah_donasi');
-        $userDonasiBelumDiterima = Donasi::where('donatur_id', $user->id ?? null)
+        $userDonasiBelumDiterima = Donasi::where('user_id', $user->id ?? null)
             ->where('jenis_donasi', 'uang')
             ->sum('jumlah_donasi');
         
-        $userDonationCount = Donasi::where('donatur_id', $user->id ?? null)->count();
+        $userDonationCount = Donasi::where('user_id', $user->id ?? null)->count();
         
         // Get kebutuhan with progress
         $kebutuhanTerbaru = KebutuhanPanti::orderBy('tanggal_pengajuan', 'desc')
@@ -45,7 +43,8 @@ class UserDashboardController extends Controller
             });
         
         // Get user donation history
-        $riwayatDonasi = Donasi::where('donatur_id', $user->id ?? null)
+        $riwayatDonasi = Donasi::with('donatur')
+            ->where('user_id', $user->id ?? null)
             ->orderBy('tanggal_donasi', 'desc')
             ->limit(4)
             ->get();
@@ -60,7 +59,6 @@ class UserDashboardController extends Controller
         return view('dashboard.user-index', [
             'totalAnakPanti' => $totalAnakPanti,
             'totalAnakAktif' => $totalAnakAktif,
-            'totalDonatur' => $totalDonatur,
             'totalDonasiBelumDiterima' => $totalDonasiBelumDiterima,
             'userDonasiBelumDiterima' => $userDonasiBelumDiterima,
             'userDonationCount' => $userDonationCount,
@@ -78,6 +76,26 @@ class UserDashboardController extends Controller
     public function profile()
     {
         return view('dashboard.profile');
+    }
+
+    /**
+     * Show user donation form
+     */
+    public function donasiCreate()
+    {
+        return view('dashboard.user-donasi');
+    }
+
+    /**
+     * Show user donation history
+     */
+    public function donasiHistory()
+    {
+        $riwayatDonasi = Donasi::where('user_id', auth()->id())
+            ->orderBy('tanggal_donasi', 'desc')
+            ->get();
+
+        return view('dashboard.user-donasi-history', compact('riwayatDonasi'));
     }
 
     /**
