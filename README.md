@@ -1,91 +1,87 @@
 # CareNest - Sistem Informasi Manajemen Panti Asuhan
 
-CareNest adalah aplikasi web berbasis Laravel dan MySQL yang dirancang untuk membantu pengelolaan data panti asuhan secara digital. Aplikasi ini menyediakan fitur lengkap untuk mengelola data anak panti, donatur, donasi, dan kebutuhan panti.
+CareNest adalah sebuah website Sistem untuk Manajemen Administrasi Panti Asuhan yang dirancang untuk membantu proses pengelolahan data dan administrasi panti asuhan secara digital. Website ini memudahkan pengelola untuk mengelola data anak panti, donatur, donasi, serta kebutuhan panti secara lebih terstruktur dan efisien.
 
-## 🎯 Fitur Utama
+Selain membantu pengelolaan data, CareNest juga menyediakan layanan bagi pengguna atau donatur untuk melihat informasi panti, mengetahui kebutuhan yang sedang dibutuhkan, dan melakukan donasi secara online. Dengan adanya sistem ini, proses pencatatan data menjadi lebih cepat, transparan, dan mengurangi risiko kesalahan yang sering terjadi pada pencatatan manual.
 
-### 1. **Autentikasi & Otorisasi**
+# Tujuan 
+- Membantu pengelolaan data panti asuhan secara digital
+- Memudahkan proses pencatatan dan pengelolaan donasi
+- Menyediakan informasi kebutuhan panti secara transparan
+- Mempermudah donatur dalam memberikan bantuan
+- Meningkatkan efisiensi administrasi panti asuhan
 
-- Sistem login, logout, dan registrasi
-- Multi-role access control (Admin dan User)
-- Manajemen hak akses berdasarkan peran
+# Fitur Website
+- Landing Page
+    -Home
+    - Tentang Kami
+    - Data Anak Panti
+    - Kebutuhan Panti
+    - Donasi
+    - Kontak
+    - Login
+    - Register
 
-### 2. **Dashboard**
+- Fitur Admin
+     Dashboard Admin
+        Total Anak Panti
+        Total Donatur
+        Total Donasi
+        Total Kebutuhan Panti
+        Grafik Donasi Bulanan
+        Data Donasi Terbaru
 
-- Statistik real-time:
-    - Total anak panti aktif
-    - Total donatur
-    - Total donasi
-    - Kebutuhan belum terpenuhi
-- Grafik donasi bulanan interaktif
+    Manajemen Anak Panti
+        Tambah Data Anak Panti
+        Edit Data Anak Panti
+        Hapus Data Anak Panti
+        Detail Data Anak Panti
 
-### 3. **Manajemen Data Anak Panti**
+    Manajemen Donatur
+        Tambah Data Donatur
+        Edit Data Donatur
+        Hapus Data Donatur
+        Detail Data Donatur
 
-- Tambah, edit, hapus, dan lihat detail anak panti
-- Pencarian data anak panti
-- Tracking status anak (aktif, keluar, lainnya)
-- Data yang disimpan:
-    - Nama, tanggal lahir, jenis kelamin
-    - Alamat, status
+    Manajemen Donasi
+        Melihat Seluruh Donasi
+        Verifikasi Donasi
+        Edit Data Donasi
+        Hapus Data Donasi
 
-### 4. **Manajemen Donatur**
+    Manajemen Kebutuhan Panti
+        Tambah Kebutuhan
+        Edit Kebutuhan
+        Hapus Kebutuhan
+        Update Status Kebutuhan
 
-- Tambah, edit, hapus, dan lihat detail donatur
-- Pencarian donatur
-- View riwayat donasi dari donatur
-- Data yang disimpan:
-    - Nama, alamat, nomor HP, email
+    Manajemen Pengguna
+        Melihat Data Pengguna
+        Mengelola Akun Pengguna
+    
+    Laporan
+        Laporan Donasi
+        Laporan Kebutuhan Panti
+        Cetak PDF
 
-### 5. **Manajemen Donasi**
+- Fitur Pengguna
+    Dashboard Pengguna
+        Melihat Statistik Donasi
+        Melihat Kebutuhan Panti
+        Melihat Informasi Anak Panti
 
-- Input donasi uang atau barang
-- Riwayat donasi lengkap
-- Filter donasi berdasarkan tanggal
-- Data yang disimpan:
-    - Nama donatur, jenis donasi, jumlah
-    - Tanggal donasi, keterangan
+    Donasi
+        Melakukan Donasi Uang
+        Melakukan Donasi Barang
+        Upload Bukti Donasi
+        Melihat Riwayat Donasi
 
-### 6. **Manajemen Kebutuhan Panti**
-
-- Tambah, edit, hapus kebutuhan panti
-- Update status kebutuhan (terpenuhi/belum terpenuhi)
-- Filter berdasarkan status
-- Data yang disimpan:
-    - Nama kebutuhan, jumlah, tanggal pengajuan, status
-
-### 7. **Laporan & Export**
-
-- Cetak laporan donasi (dengan filter tanggal)
-- Cetak laporan kebutuhan panti (dengan filter status)
-- Export ke PDF menggunakan browser print
-
-## 🔐 Perbedaan Hak Akses
-
-### Admin
-
-✅ Akses penuh ke semua fitur
-
-- Kelola semua data (anak panti, donatur, donasi, kebutuhan)
-- Hapus data
-- Lihat dashboard lengkap
-- Akses laporan penuh dan export PDF
-- Kelola akun pengguna
-
-### User (Pengguna Biasa)
-
-✅ Akses terbatas
-
-- Lihat data anak panti
-- Lihat data donatur
-- Input donasi
-- Lihat kebutuhan panti
-- Lihat riwayat donasi
-  ❌ Tidak dapat menghapus data
-  ❌ Tidak dapat mengelola akun
+    Profil
+        Melihat Profil
+        Edit Profil
+        Ganti Password
 
 ## 📋 Struktur Database
-
-```
 users
 ├── id
 ├── name
@@ -129,78 +125,6 @@ kebutuhan_panti
 ├── status (belum_terpenuhi/terpenuhi)
 ├── keterangan
 └── timestamps
-```
-
-## 🚀 Instalasi & Setup
-
-### Prasyarat
-
-- PHP 8.2 atau lebih
-- Composer
-- MySQL 8.0 atau lebih
-- Node.js (untuk development)
-
-### Langkah Instalasi
-
-1. **Clone atau Download Repository**
-
-```bash
-cd c:\Users\TIARA\CareNest
-```
-
-2. **Install Dependencies**
-
-```bash
-composer install
-npm install
-```
-
-3. **Setup Environment**
-
-```bash
-cp .env.example .env
-php artisan key:generate
-```
-
-4. **Konfigurasi Database**
-   Edit file `.env`:
-
-```
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=carenest
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-5. **Jalankan Migrations**
-
-```bash
-php artisan migrate
-```
-
-6. **Seed Sample Data**
-
-```bash
-php artisan db:seed
-```
-
-7. **Build Assets (Vite)**
-
-```bash
-npm run build
-# atau untuk development dengan hot reload
-npm run dev
-```
-
-8. **Jalankan Aplikasi**
-
-```bash
-php artisan serve
-```
-
-Akses aplikasi di: `http://localhost:8000`
 
 ## 👤 Akun Default
 
@@ -214,18 +138,9 @@ Setelah menjalankan seeder, Anda dapat login dengan:
 
 **User:**
 
-- Email: `user@carenest.com`
-- Password: `password`
+- Email: `Hinarakeylana@gmail.com`
+- Password: `Hinarakey`
 - Role: User
-
-## 🎨 Desain & UI
-
-- **Framework CSS**: Bootstrap 5
-- **Icons**: Font Awesome 6
-- **Charts**: Chart.js untuk grafik donasi
-- **Design**: Modern, responsive, dan user-friendly
-- **Sidebar Navigation**: Menu navigasi tetap dengan dark theme
-- **Color Scheme**: Professional blue, gradient backgrounds
 
 ## 📁 Struktur Folder
 
@@ -283,21 +198,6 @@ bootstrap/
 └── app.php
 ```
 
-## 🔄 Routes
-
-| Aksi              | URL                     | Method | Auth | Role  |
-| ----------------- | ----------------------- | ------ | ---- | ----- |
-| Dashboard         | `/dashboard`            | GET    | ✓    | All   |
-| Anak Panti List   | `/anak-panti`           | GET    | ✓    | All   |
-| Anak Panti Create | `/anak-panti/create`    | GET    | ✓    | Admin |
-| Anak Panti Store  | `/anak-panti`           | POST   | ✓    | Admin |
-| Anak Panti Show   | `/anak-panti/{id}`      | GET    | ✓    | All   |
-| Anak Panti Edit   | `/anak-panti/{id}/edit` | GET    | ✓    | Admin |
-| Anak Panti Update | `/anak-panti/{id}`      | PUT    | ✓    | Admin |
-| Anak Panti Delete | `/anak-panti/{id}`      | DELETE | ✓    | Admin |
-| Donasi Report     | `/reports/donasi`       | GET    | ✓    | Admin |
-| Kebutuhan Report  | `/reports/kebutuhan`    | GET    | ✓    | Admin |
-
 ## 🛠️ Teknologi yang Digunakan
 
 - **Backend**: Laravel 11
@@ -325,36 +225,3 @@ bootstrap/
 
 - Donasi memiliki foreign key ke Donatur
 - Cascade delete untuk donasi ketika donatur dihapus
-
-## 🐛 Troubleshooting
-
-### Database Connection Error
-
-```bash
-php artisan migrate:fresh --seed
-```
-
-### Missing Assets
-
-```bash
-npm run build
-```
-
-### Clear Cache
-
-```bash
-php artisan cache:clear
-php artisan config:cache
-```
-
-## 📞 Support
-
-Untuk pertanyaan atau bantuan, silakan hubungi tim development.
-
-## 📄 License
-
-MIT License - Silakan bebas menggunakan dan memodifikasi sesuai kebutuhan.
-
----
-
-**Developed with ❤️ for Orphanage Management**
